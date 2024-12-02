@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 08:32:25 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/01 22:53:36 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/02 09:11:05 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int     ft_calc_bcost(t_stack *b, t_node *node)
 {
-    int b_index;
-    int     index;
-    t_node *min;
-    t_node *max;
+    int		b_index;
+    int		index;
+    t_node 		*min;
+    t_node 		*max;
     
     min = ft_get_min(b);
     max = ft_get_max(b);
@@ -31,27 +31,24 @@ int     ft_calc_bcost(t_stack *b, t_node *node)
         b_index = (b->size - index + 2);
     return (b_index);
 }
+
 void    make_it_top(t_stack *b)
 {
-    t_node *max;
+    t_node	*max;
 
     ft_get_indexes(b);
     max = ft_get_max(b);
     if (max->index == 1)
-        return ;
+	    return ;
     if (max->index <= (b->size/2))
     {
         while (max != b->top)
-        {
-            ft_rb(b);
-        }
+		    ft_rb(b);
     }
     else if (max->index > (b->size / 2))
     {
         while (max != b->top)
-        {
-            ft_rrb(b);
-        }
+		    ft_rrb(b);
     }
     return ;
 }
