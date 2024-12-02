@@ -6,13 +6,13 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 08:11:10 by eaqrabaw          #+#    #+#              #
-#    Updated: 2024/12/02 08:52:35 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2024/12/02 09:22:37 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 Name = push_swap
 CC = cc
-Flags = -Wall -Wextra -Werror
+Flags = -Wall -Wextra -Werror -g
 SRCS = main stack operations basic_ops double_ops aops bops \
 		error sorting_small sorting_utils sorting_large_utils sorting_large
 srcDir = srcs/

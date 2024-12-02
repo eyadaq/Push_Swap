@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 07:09:01 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/02 00:08:12 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/02 10:42:52 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ static t_node    *ft_leastnodecost(t_stack *a, t_stack *b)
     return (least);
 }
 
-static void    ft_move_a(t_stack *a, t_node *node, int move)
+static void    ft_move_a(t_stack *a, t_node *node)
 {
     int     counter;
 
     counter = 0;
-    if (1 == move)
+    if (node->index <= (a->size / 2))
     {
         while (counter < (node->cost - 1))
         {
@@ -43,7 +43,7 @@ static void    ft_move_a(t_stack *a, t_node *node, int move)
         }
         return ;
     }
-    if (2 == move)
+    else if (node->index > (a->size / 2))
     {
         while (counter < (node->cost - 1))
         {
@@ -54,12 +54,12 @@ static void    ft_move_a(t_stack *a, t_node *node, int move)
     }
 }
 
-static void    ft_move_b(t_stack *b, t_node *node, int move)
+static void    ft_move_b(t_stack *b, t_node *node, int bcost)
 {
     int     counter;
 
     counter = 0;
-    if (1 == move)
+    if (bcost > 0 && bcost <= (b->size / 2))
     {
         while (counter < (node->cost))
         {
@@ -68,9 +68,9 @@ static void    ft_move_b(t_stack *b, t_node *node, int move)
         }
         return ;
     }
-    if (2 == move)
+    else if (bcost > 0 && bcost > (b->size / 2))
     {
-        while (counter < (node->cost - 3))
+        while (counter < (node->cost - 1))
         {
             ft_rrb(b);
             counter++;
@@ -90,25 +90,15 @@ static void     ft_push_least_cost(t_stack *a, t_stack *b)
     max = ft_get_max(b);
     node = ft_leastnodecost(a, b);
     bcost = ft_calc_bcost(b, node);
-    if (node->data > max->data)
+    if (node->data > max->data || node->data < min->data)
     {
         ft_pb(a,b);
+        if (node->data < min->data)
+            ft_rb(b);
         return ;
     }
-    if (node->data < min->data)
-    {
-        ft_pb(a,b);
-        ft_rb(b);
-        return ;
-    }
-    if (node->index <= (a->size / 2))
-        ft_move_a(a,node,1);   
-    else if (node->index > (a->size / 2))
-        ft_move_a(a, node ,2);   
-    if (bcost > 0 && bcost <= (b->size / 2))
-        ft_move_b(b, node ,1);
-    else if (bcost > 0 && bcost > (b->size / 2))
-        ft_move_b(b, node ,2);
+    ft_move_a(a, node);   
+    ft_move_b(b, node ,bcost);
     ft_pb(a,b);
     return ;
 }
@@ -126,5 +116,4 @@ void        ft_sort_large(t_stack *a, t_stack *b)
     make_it_top(b);
     if (3 == a->size)
         ft_sort_three(a);
-       
 }

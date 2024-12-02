@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:59:58 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/02 08:51:05 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/02 10:35:11 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ t_node     *ft_get_max(t_stack *stack)
     t_node  *maxnode;
 
     node = stack->top;
-    max = stack->top->data;
+    max = node->data;
     maxnode = stack->top;
-    while (node->next != NULL)
+    while (node)
     {
-        node = node->next;
         if (node->data > max)
         {
             max = node->data;
             maxnode = node;           
         }
+        node = node->next;
     }
     return (maxnode);   
 }
@@ -40,16 +40,16 @@ t_node     *ft_get_min(t_stack *stack)
     int     min;
 
     node = stack->top;
-    min = stack->top->data;
+    min = node->data;
     minnode = node;
-    while (node->next != NULL)
+    while (node)
     {
-        node = node->next;
         if (node->data < min)
         {
             min = node->data;
             minnode = node;
         }
+        node = node->next;
     }
     return (minnode);
 }
