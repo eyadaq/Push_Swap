@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:59:58 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/02 10:35:11 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/03 07:01:20 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,50 +68,4 @@ int     ft_checksorted(t_stack *stack)
         node = node->next;
     }
     return (1);
-}
-int     ft_largest_smaller_index(t_stack *s, t_node *node)
-{
-    t_node *temp;
-    int res;
-    int first;
-    int largest;
-
-    temp = s->top;
-    res = -1;
-    first = 1;
-    largest = INT_MIN;
-    while (temp)
-    {
-        if (first && temp->data < node->data)
-        {
-            res = temp->index;
-            first = 0;
-            largest = temp->data;
-        }
-        if ((temp->data > largest) && (temp->data < node->data))
-        {
-            res = temp->index;
-            largest = temp->data;
-        }
-        temp = temp->next;
-    }
-    return (res);
-}
-
-void    ft_calc_cost(t_stack *a, t_stack *b)
-{
-    t_node  *temp_a;
-    int         b_index;
-        
-    temp_a = a->top;
-    while (temp_a)
-    {
-        b_index = ft_calc_bcost(b, temp_a);
-        //ft_printf("the node -> %d has b index of -> %d\n",temp_a->data, b_index);
-        if (temp_a->index <= (a->size / 2))
-            temp_a->cost = ((temp_a->index) + b_index);
-        else if (temp_a->index > (a->size / 2))
-            temp_a->cost = ((a->size - temp_a->index) + 2 + b_index);
-        temp_a = temp_a->next;
-    }
 }
