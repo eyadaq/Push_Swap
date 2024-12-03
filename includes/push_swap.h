@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 08:39:54 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/03 07:51:55 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/03 09:04:59 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ void				ft_nodeadd_front(t_stack *stack, t_node *newnode);
 int		            ft_check_fill(t_stack *stack, int argc, char **argv, int c);
 //--------------------Sorting Large----------------------------------------------------------------
 void                ft_sort_large(t_stack *a, t_stack *b);
-
+void                ft_calculate_cost(t_stack *a, t_stack *b);
+t_node              *ft_get_least_cost(t_stack *a);
 #endif

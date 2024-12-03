@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:06:38 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/01 22:21:26 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/03 09:13:01 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	main(int argc, char *argv[])
 			i++;
 		}
 		free(args);
-		ft_sortsmall(stack_a, stack_b);
+		ft_sort_small(stack_a, stack_b);
 		ft_free_both(stack_a,stack_b);
 		return (0);
 	}
@@ -70,7 +70,17 @@ int	main(int argc, char *argv[])
 		ft_get_indexes(stack_a);
 		ft_print_stack(stack_a);
 		ft_printf("%s\n", "Operations used in sorting:");
-		ft_sort_large(stack_a, stack_b);
+		//ft_sort_large(stack_a, stack_b);
+		ft_pb(stack_a,stack_b);
+		ft_pb(stack_a,stack_b);
+		ft_calculate_cost(stack_a, stack_b);
+		t_node *lowest = ft_get_least_cost(stack_a);
+		ft_printf("the least node is  %d and its cost is %d", lowest->data, lowest->cost);
+		ft_pb(stack_a,stack_b);
+		ft_calculate_cost(stack_a, stack_b);
+		lowest = ft_get_least_cost(stack_a);
+		ft_printf("the least node is  %d and its cost is %d", lowest->data, lowest->cost);
+		
 		ft_printf("%s\n", "After Sorting :");
 		ft_print_stack(stack_a);
 		ft_printf("-------------stack b-------------------------------\n");
