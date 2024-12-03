@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 08:32:25 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/03 09:13:11 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:07:29 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ void ft_calculate_cost(t_stack *a, t_stack *b)
 
         // Calculate the total cost (you can choose to sum or use another logic here)
         total_cost = acost + bcost;
-        ft_printf("the node is %d acost = %d , the bcost = %d and the total is %d\n",node->data ,total_cost, acost, bcost);
         // Save the cost in the node
         node->cost = total_cost;
 
@@ -103,4 +102,100 @@ t_node      *ft_get_least_cost(t_stack *a)
         node = node->next;
     }
     return (least);
+}
+
+void        ft_move_a(t_stack *a, t_node *node)
+{
+    t_node      *n;
+
+    n = a->top;
+    if (n->index > (a->size / 2) && (a->top != node))
+    {
+        ft_rra(a);
+    }
+    else if (n->index < (a->size / 2) && (a->top != node))
+    {
+        ft_ra(a);
+    }
+    return ;
+}
+
+void        ft_move_b(t_stack *b, t_node *node)
+{
+    t_node      *n;
+
+    n = b->top;
+    if (n->index > (b->size / 2) && (b->top != node))
+    {
+        ft_rrb(b);
+    }
+    else if (n->index < (b->size / 2) && (b->top != node))
+    {
+        ft_rb(b);
+    }
+    return ;
+}
+
+void    ft_make_large_top(t_stack *a)
+{
+    t_node *max;
+
+    max = ft_get_max(a);
+    
+    if (a->top == max)
+        return ;
+    ft_move_a(a,max);
+    return ;
+}
+
+t_node *ft_find_largest_smaller_node(t_stack *stack, t_node *node)
+{
+    t_node *current = stack->top;
+    t_node *largest_smaller_node = NULL;
+
+    while (current != NULL)
+    {
+        // Check if the current node's data is smaller than the given node's data
+        // and is larger than the previously found "largest smaller node"
+        if (current->data < node->data)
+        {
+            if (largest_smaller_node == NULL || current->data > largest_smaller_node->data)
+            {
+                largest_smaller_node = current;
+            }
+        }
+        current = current->next;
+    }
+
+    return largest_smaller_node;
+}
+
+void    ft_sort_large(t_stack *a, t_stack *b)
+{
+    t_node *leastcost;
+    t_node  *target;
+
+    ft_pb(a, b);
+    ft_pb(a, b);
+    ft_get_indexes(a);
+    ft_get_indexes(b);
+    ft_calculate_cost(a,b);
+    leastcost = ft_get_least_cost(a);
+    target = ft_find_largest_smaller_node(b, leastcost);
+    if (b->top->data < b->top->next->data)
+        ft_sb(b);
+    while (a->size != 3)
+    {
+        ft_move_a(a, leastcost);
+        ft_move_b(b, target);
+        ft_pb(a,b);
+        ft_make_large_top(b);
+        ft_get_indexes(a);
+        ft_get_indexes(b);
+        ft_calculate_cost(a,b);
+        leastcost = ft_get_least_cost(a);
+        target = ft_find_largest_smaller_node(b, leastcost);
+    }
+    ft_sort_small(a,b);
+    return ;
 }
