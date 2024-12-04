@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sorting_large_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 08:32:25 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/03 21:46:25 by codespace        ###   ########.fr       */
+/*   Updated: 2024/12/04 08:21:40 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,41 +127,77 @@ t_node      *ft_get_least_cost(t_stack *a)
     return (least);
 }
 
-void        ft_move_a(t_stack *a, t_node *node)
+void ft_make_top_A(t_stack *stack, t_node *node)
 {
-    t_node      *n;
+    int position = 0;
+    t_node *current = stack->top;
 
-    n = a->top;
-    while (n->index > (a->size / 2) && (a->top != node))
+    // Find the position of the node in the stack
+    while (current != NULL && current != node)
     {
-        ft_rra(a);
+        current = current->next;
+        position++;
     }
-    if (a->top == node)
-        return ;
-    while (n->index < (a->size / 2) && (a->top != node))
+
+    // If the node is not found, return
+    if (current == NULL)
+        return;
+
+    // Determine whether to rotate or reverse rotate
+    if (position <= stack->size / 2)
     {
-        ft_ra(a);
+        // Rotate until the node is at the top
+        while (stack->top != node)
+        {
+            ft_ra(stack);
+        }
     }
-    return ;
+    else
+    {
+        // Reverse rotate until the node is at the top
+        while (stack->top != node)
+        {
+            ft_rra(stack);
+        }
+    }
 }
 
-void        ft_move_b(t_stack *b, t_node *node)
-{
-    t_node      *n;
 
-    n = b->top;
-    while (n->index > (b->size / 2) && (b->top != node))
+void ft_make_top_B(t_stack *stack, t_node *node)
+{
+    int position = 0;
+    t_node *current = stack->top;
+
+    // Find the position of the node in the stack
+    while (current != NULL && current != node)
     {
-        ft_rrb(b);
+        current = current->next;
+        position++;
     }
-    if (b->top == node)
-        return ;
-    while (n->index < (b->size / 2) && (b->top != node))
+
+    // If the node is not found, return
+    if (current == NULL)
+        return;
+
+    // Determine whether to rotate or reverse rotate
+    if (position <= stack->size / 2)
     {
-        ft_rb(b);
+        // Rotate until the node is at the top
+        while (stack->top != node)
+        {
+            ft_rb(stack);
+        }
     }
-    return ;
+    else
+    {
+        // Reverse rotate until the node is at the top
+        while (stack->top != node)
+        {
+            ft_rrb(stack);
+        }
+    }
 }
+
 
 void    ft_make_large_top(t_stack *b)
 {
@@ -171,7 +207,7 @@ void    ft_make_large_top(t_stack *b)
     
     if (b->top == max)
         return ;
-    ft_move_b(b,max);
+    ft_make_top_b(b,max);
     return ;
 }
 
@@ -196,25 +232,29 @@ void    ft_sort_large(t_stack *a, t_stack *b)
         leastcost = ft_get_least_cost(a);
         if (leastcost->data > max->data)
         {
-            target = NULL;
+            target = b->top;
+            ft_make_top_a(a, leastcost);
+            ft_make_top_b(b,target);
             ft_pb(a,b);
         }
         else if (leastcost->data < min->data)
         {
-            target = NULL;
+            target = b->top;
+            ft_make_top_a(a, leastcost);
+            ft_make_top_b(b,target);
             ft_pb(a,b);
             ft_rb(b);
         }
-        else {
+        else if (leastcost->data > min->data && leastcost->data < max->data) 
+         {
             target = ft_find_largest_smaller_node(b, leastcost);
-            ft_printf("the node is  %d and the smallest is %d", leastcost->data,target->data);
-            ft_move_a(a, leastcost);
-            ft_move_b(b, target);
+            ft_make_top_a(a, leastcost);
+            ft_make_top_b(b,target);
             ft_pb(a,b);
-            ft_make_large_top(b);
         }
     }
-    ft_print_stack(b);
+    max = ft_get_max(b);
+    ft_make_top_b(b, max);
     ft_sort_small(a,b);
     return ;
 }
