@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 08:32:25 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/04 08:21:40 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/04 08:29:11 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_node      *ft_get_least_cost(t_stack *a)
     return (least);
 }
 
-void ft_make_top_A(t_stack *stack, t_node *node)
+void ft_make_top_a(t_stack *stack, t_node *node)
 {
     int position = 0;
     t_node *current = stack->top;
@@ -163,7 +163,7 @@ void ft_make_top_A(t_stack *stack, t_node *node)
 }
 
 
-void ft_make_top_B(t_stack *stack, t_node *node)
+void ft_make_top_b(t_stack *stack, t_node *node)
 {
     int position = 0;
     t_node *current = stack->top;
@@ -211,6 +211,44 @@ void    ft_make_large_top(t_stack *b)
     return ;
 }
 
+t_node *ft_find_insert_position(t_stack *a, t_node *node)
+{
+    t_node *current = a->top;
+    t_node *insert_position = a->top;
+
+    while (current != NULL)
+    {
+        if (current->data > node->data)
+        {
+            insert_position = current;
+            break;
+        }
+        current = current->next;
+    }
+    return insert_position;
+}
+
+void ft_move_b_to_a(t_stack *a, t_stack *b)
+{
+    t_node *node;
+    t_node *insert_position;
+
+    while (b->size > 0)
+    {
+        node = b->top;
+        insert_position = ft_find_insert_position(a, node);
+
+        // Move the node to the top of stack b
+        ft_make_top_b(b, node);
+
+        // Move the insert position to the top of stack a
+        ft_make_top_a(a, insert_position);
+
+        // Push the node from b to a
+        ft_pa(a, b);
+    }
+}
+
 void    ft_sort_large(t_stack *a, t_stack *b)
 {
     t_node *leastcost;
@@ -256,6 +294,7 @@ void    ft_sort_large(t_stack *a, t_stack *b)
     max = ft_get_max(b);
     ft_make_top_b(b, max);
     ft_sort_small(a,b);
+    ft_move_b_to_a(a, b);
     return ;
 }
 /*
