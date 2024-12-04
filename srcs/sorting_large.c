@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 07:09:01 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/04 09:31:46 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/04 10:16:21 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,29 @@ void ft_make_top_a(t_stack *a, t_stack *b, t_node *a_node, t_node *b_target)
         }
     }
 }
+void ft_move_b_to_a(t_stack *a, t_stack *b)
+{
+    t_node *a_top;
+    t_node *b_top;
+    t_node *last;
+    int     i;
 
+    i = 0;
+    a_top = a->top;
+    b_top = b->top;
+    last = ft_lastnode(a_top);
+    while (b_top)
+    {
+        b_top = b->top;
+        while (b_top->data < last->data && i < 3)
+        {
+            ft_rra(a);
+            i++;
+            last = ft_lastnode(a_top);
+        }
+        ft_pb(a,b);
+    }
+}
 void ft_sort_large(t_stack *a, t_stack *b)
 {
     t_node *leastcost;
@@ -320,5 +342,6 @@ void ft_sort_large(t_stack *a, t_stack *b)
     max = ft_get_max(b);
     ft_make_top_b(b, max);
     ft_sort_small(a,b);
+    ft_move_b_to_a(a,b);
     return ;
 }
