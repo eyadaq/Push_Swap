@@ -5,171 +5,96 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 07:09:01 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/04 10:16:21 by eaqrabaw         ###   ########.fr       */
+/*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
+/*   Updated: 2024/12/04 10:34:28 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
-
-t_node *ft_find_largest_smaller_node(t_stack *stack, t_node *node)
+// Find the largest node smaller than the given node in the stack
+t_node *ft_find_target_node(t_stack *stack, t_node *node)
 {
-    t_node *current = stack->top;
-    t_node *largest_smaller_node = NULL;
+    t_node *current = NULL;
+    t_node *target_node = NULL;
 
-    while (current != NULL)
+    if (!stack || !node)
+        return NULL;
+
+    current = stack->top;
+    while (current)
     {
-        // Check if the current node's data is smaller than the given node's data
-        // and is larger than the previously found "largest smaller node"
+        // Find the largest node in B that is smaller than the node in A
         if (current->data < node->data)
         {
-            if (largest_smaller_node == NULL || current->data > largest_smaller_node->data)
+            if (!target_node || current->data > target_node->data)
             {
-                largest_smaller_node = current;
+                target_node = current;
             }
         }
         current = current->next;
     }
 
-    return largest_smaller_node;
+    // If no smaller node found, return the maximum node
+    if (!target_node)
+        return ft_get_max(stack);
+
+    return target_node;
 }
 
-int ft_calc_acost(t_stack *a, t_node *node)
+// Calculate cost for moving a node to the correct position
+int ft_calculate_node_cost(t_stack *a, t_stack *b, t_node *node)
 {
-    int position;
-    int cost;
+    int a_cost = 0;
+    int b_cost = 0;
+    t_node *target = NULL;
 
-    position = 0;
-    t_node *current = a->top;
+    // Calculate cost in stack A
+    a_cost = node->index;
+    if (a_cost > a->size / 2)
+        a_cost = a->size - a_cost - 1;
 
-    while (current != NULL)
-    {
-        if (current->data == node->data)
-        {
-            break;
-        }
-        position++;
-        current = current->next;
-    }
-    if (position < a->size / 2)
-        cost = position;
-    else
-        cost = a->size - position;
-    return cost;
-}
-
-void ft_calculate_cost(t_stack *a, t_stack *b)
-{
-    t_node *node = a->top;
-    t_node *largest_smaller;
-    int acost, bcost, total_cost;
+    // Find target node in stack B
+    target = ft_find_target_node(b, node);
     
-    while (node != NULL)
-    {
-        acost = ft_calc_acost(a, node);  // Calculate cost for stack a
-        largest_smaller = ft_find_largest_smaller_node(b, node);
-        if (!largest_smaller)
-        {
-            bcost = 0;
-        }
-        else {
-            bcost = largest_smaller->index;
-        }
-        //ft_calc_bcost(b, largest_smaller);  // Calculate cost for stack b
+    // Calculate cost in stack B
+    b_cost = target->index - 1;
+    if (b_cost > b->size / 2)
+        b_cost = b->size - b_cost;
 
-        // Calculate the total cost (you can choose to sum or use another logic here)
-        total_cost = acost + bcost;
-        // Save the cost in the node
-        node->cost = total_cost;
-
-        node = node->next;  // Move to the next node
-    }
+    return a_cost + b_cost;
 }
 
-t_node      *ft_get_least_cost(t_stack *a)
-{
-    t_node *node;
-    t_node         *least;
-
-    node = a->top;
-    least = a->top;
-
-    while (node)
-    {
-        if (node->cost < least->cost)
-            least = node;
-        node = node->next;
-    }
-    return (least);
-}
-
-void ft_make_top_b(t_stack *stack, t_node *node)
-{
-    int position = 0;
-    t_node *current = stack->top;
-
-    // Find the position of the node in the stack
-    while (current != NULL && current != node)
-    {
-        current = current->next;
-        position++;
-    }
-
-    // If the node is not found, return
-    if (current == NULL)
-        return;
-
-    // Determine whether to rotate or reverse rotate
-    if (position <= stack->size / 2)
-    {
-        // Rotate until the node is at the top
-        while (stack->top != node)
-        {
-            ft_rb(stack);
-        }
-    }
-    else
-    {
-        // Reverse rotate until the node is at the top
-        while (stack->top != node)
-        {
-            ft_rrb(stack);
-        }
-    }
-}
-
-void    ft_make_large_top(t_stack *b)
-{
-    t_node *max;
-
-    max = ft_get_max(b);
-    
-    if (b->top == max)
-        return ;
-    ft_make_top_b(b,max);
-    return ;
-}
-
-t_node *ft_find_insert_position(t_stack *a, t_node *node)
+// Find the node with the lowest push cost
+t_node *ft_find_cheapest_node(t_stack *a, t_stack *b)
 {
     t_node *current = a->top;
-    t_node *insert_position = a->top;
+    t_node *cheapest = NULL;
+    int min_cost = INT_MAX;
+    int current_cost = 0;
 
-    while (current != NULL)
+    while (current)
     {
-        if (current->data > node->data)
+        current_cost = ft_calculate_node_cost(a, b, current);
+        if (current_cost < min_cost)
         {
-            insert_position = current;
-            break;
+            min_cost = current_cost;
+            cheapest = current;
         }
         current = current->next;
     }
-    return insert_position;
+
+    return cheapest;
 }
 
-void ft_optimize_rotation(t_stack *a, t_stack *b, int a_pos, int b_pos)
+// Rotate stacks to bring nodes to the top
+void ft_rotate_to_top(t_stack *a, t_stack *b, t_node *a_node, t_node *b_target)
 {
-    // Simultaneously rotate both stacks if possible
+    int a_pos = a_node->index - 1;
+    int b_pos = b_target->index - 1;
+    int a_size = a->size;
+    int b_size = b->size;
+
+    // Optimize rotation
     while (a_pos > 0 && b_pos > 0)
     {
         ft_rr(a, b);
@@ -177,171 +102,68 @@ void ft_optimize_rotation(t_stack *a, t_stack *b, int a_pos, int b_pos)
         b_pos--;
     }
 
-    // Rotate stack A if needed
-    while (a_pos > 0)
+    // Rotate A
+    while (a->top != a_node)
     {
-        ft_ra(a);
-        a_pos--;
-    }
-
-    // Rotate stack B if needed
-    while (b_pos > 0)
-    {
-        ft_rb(b);
-        b_pos--;
-    }
-}
-
-void ft_optimize_reverse_rotation(t_stack *a, t_stack *b, int a_pos, int b_pos)
-{
-    int a_size = a->size;
-    int b_size = b->size;
-
-    // Simultaneously reverse rotate both stacks if possible
-    while (a_pos < a_size && b_pos < b_size)
-    {
-        ft_rrr(a, b);
-        a_pos++;
-        b_pos++;
-    }
-
-    // Reverse rotate stack A if needed
-    while (a_pos < a_size)
-    {
-        ft_rra(a);
-        a_pos++;
-    }
-
-    // Reverse rotate stack B if needed
-    while (b_pos < b_size)
-    {
-        ft_rrb(b);
-        b_pos++;
-    }
-}
-
-void ft_make_top_a(t_stack *a, t_stack *b, t_node *a_node, t_node *b_target)
-{
-    int a_pos = 0;
-    int b_pos = 0;
-    t_node *current;
-
-
-    current = a->top;
-    while (current != NULL && current != a_node)
-    {
-        current = current->next;
-        a_pos++;
-    }
-    current = b->top;
-    while (current != NULL && current != b_target)
-    {
-        current = current->next;
-        b_pos++;
-    }
-    if (a_pos <= a->size / 2 && b_pos <= b->size / 2)
-    {
-        ft_optimize_rotation(a, b, a_pos, b_pos);
-    }
-    else if (a_pos > a->size / 2 && b_pos > b->size / 2)
-    {
-        a_pos = a->size - a_pos;
-        b_pos = b->size - b_pos;
-        ft_optimize_reverse_rotation(a, b, a_pos, b_pos);
-    }
-    else
-    {
-        if (a_pos <= a->size / 2)
-        {
-            while (a->top != a_node)
-                ft_ra(a);
-        }
+        if (a_pos <= a_size / 2)
+            ft_ra(a);
         else
-        {
-            a_pos = a->size - a_pos;
-            while (a->top != a_node)
-                ft_rra(a);
-        }
-
-        if (b_pos <= b->size / 2)
-        {
-            while (b->top != b_target)
-                ft_rb(b);
-        }
-        else
-        {
-            b_pos = b->size - b_pos;
-            while (b->top != b_target)
-                ft_rrb(b);
-        }
-    }
-}
-void ft_move_b_to_a(t_stack *a, t_stack *b)
-{
-    t_node *a_top;
-    t_node *b_top;
-    t_node *last;
-    int     i;
-
-    i = 0;
-    a_top = a->top;
-    b_top = b->top;
-    last = ft_lastnode(a_top);
-    while (b_top)
-    {
-        b_top = b->top;
-        while (b_top->data < last->data && i < 3)
-        {
             ft_rra(a);
-            i++;
-            last = ft_lastnode(a_top);
-        }
-        ft_pb(a,b);
+    }
+
+    // Rotate B
+    while (b->top != b_target)
+    {
+        if (b_pos <= b_size / 2)
+            ft_rb(b);
+        else
+            ft_rrb(b);
     }
 }
+// Helper function to align the final stack
+void ft_align_stack(t_stack *a)
+{
+    t_node *min = ft_get_min(a);
+    int min_pos = min->index - 1;
+    int stack_size = a->size;
+
+    while (a->top != min)
+    {
+        if (min_pos <= stack_size / 2)
+            ft_ra(a);
+        else
+            ft_rra(a);
+    }
+}
+// Main sorting function for large number of elements
 void ft_sort_large(t_stack *a, t_stack *b)
 {
-    t_node *leastcost;
-    t_node *target;
-    t_node *max;
-    t_node *min;
+    // Move first two elements to B to start
+    ft_pb(a, b);
+    ft_pb(a, b);
 
-    ft_pb(a, b);
-    ft_pb(a, b);
+    // Ensure initial order in B
     if (b->top->data < b->top->next->data)
         ft_sb(b);
-    while (a->size != 3)
+
+    // Push elements from A to B with cost optimization
+    while (a->size > 3)
     {
-        ft_get_indexes(a);
-        ft_get_indexes(b);
-        ft_calculate_cost(a,b);
-        max = ft_get_max(b);
-        min = ft_get_min(b);
-        leastcost = ft_get_least_cost(a);
-        
-        if (leastcost->data > max->data)
-        {
-            target = b->top;
-            ft_make_top_a(a, b, leastcost, target);
-            ft_pb(a,b);
-        }
-        else if (leastcost->data < min->data)
-        {
-            target = b->top;
-            ft_make_top_a(a, b, leastcost, target);
-            ft_pb(a,b);
-            ft_rb(b);
-        }
-        else if (leastcost->data > min->data && leastcost->data < max->data) 
-        {
-            target = ft_find_largest_smaller_node(b, leastcost);
-            ft_make_top_a(a, b, leastcost, target);
-            ft_pb(a,b);
-        }
+        t_node *cheapest = ft_find_cheapest_node(a, b);
+        t_node *target = ft_find_target_node(b, cheapest);
+
+        // Rotate and push
+        ft_rotate_to_top(a, b, cheapest, target);
+        ft_pb(a, b);
     }
-    max = ft_get_max(b);
-    ft_make_top_b(b, max);
-    ft_sort_small(a,b);
-    ft_move_b_to_a(a,b);
-    return ;
+
+    // Sort remaining 3 elements in A
+    ft_sort_small(a, b);
+
+    // Move all elements back to A
+//    ft_move_b_to_a(a, b);
+
+    // Final alignment
+    ft_align_stack(a);
 }
+
