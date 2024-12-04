@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:06:38 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/04 07:34:40 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/04 09:32:53 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ static void handle_multiple_arguments(t_stack *stack_a, t_stack *stack_b, int ar
         ft_free_stack(stack_b);
         exit(-1);
     }
-    ft_printf("%s\n", "Operations used in sorting:");
+//ft_printf("%s\n", "Operations used in sorting:");
     ft_sort_large(stack_a, stack_b);
-    ft_printf("%s\n", "After Sorting :");
-    ft_print_stack(stack_a);
-    ft_printf("-------------stack A-------------------------------\n");
-    ft_printf("stack a size = %d\n", stack_a->size);
-    ft_print_stack(stack_b);
-    ft_printf("-------------stack B-------------------------------\n");
+//    ft_printf("%s\n", "After Sorting :");
+  //  ft_print_stack(stack_a);
+  //  ft_printf("-------------stack A-------------------------------\n");
+   // ft_printf("stack a size = %d\n", stack_a->size);
+   // ft_print_stack(stack_b);
+    //ft_printf("-------------stack B-------------------------------\n");
     ft_free_both(stack_a, stack_b);
 }
 

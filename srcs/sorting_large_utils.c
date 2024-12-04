@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 08:32:25 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/04 08:29:11 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/04 09:23:48 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,6 @@ void    ft_sort_large(t_stack *a, t_stack *b)
     max = ft_get_max(b);
     ft_make_top_b(b, max);
     ft_sort_small(a,b);
-    ft_move_b_to_a(a, b);
     return ;
 }
 /*
