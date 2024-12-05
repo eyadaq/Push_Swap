@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 08:39:54 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/05 09:25:47 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/05 10:03:03 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_node
 	int				data;
     int             cost;
     int             index;
+    struct s_node	*target;
 	struct s_node	*next;
     struct s_node	*prev;
 }					t_node;
@@ -75,8 +76,6 @@ void				ft_nodeadd_back(t_stack *stack, t_node *newnode);
 void				ft_nodeadd_front(t_stack *stack, t_node *newnode);
 int		            ft_check_fill(t_stack *stack, int argc, char **argv, int c);
 //--------------------Sorting Large----------------------------------------------------------------
-void                ft_sort_large(t_stack *a, t_stack *b);
-void                ft_calculate_cost(t_stack *a, t_stack *b);
-t_node              *ft_get_least_cost(t_stack *a);
+
 
 #endif
