@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 08:39:54 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/04 11:07:37 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/05 09:25:47 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_node
     int             cost;
     int             index;
 	struct s_node	*next;
-
+    struct s_node	*prev;
 }					t_node;
 
 typedef struct s_stack
@@ -32,6 +32,8 @@ typedef struct s_stack
     t_node  *top;
     int     size;
 }    t_stack;
+
+void quick_sort(t_stack *stack);
 //------------------------Sorting Small------------------------------------------------------------
 void                ft_sort_small(t_stack *a, t_stack *b);
 void                ft_sort_three(t_stack *stacka);
