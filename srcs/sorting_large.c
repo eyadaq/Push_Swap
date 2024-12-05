@@ -6,95 +6,120 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/05 11:40:55 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/05 20:09:30 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-/*
-1. sort_a_b
-Purpose: Determines the optimal move to transfer a node from stack A to stack B based on the calculated cost.
-Inputs:
-node **stack_a: Pointer to stack A.
-node **stack_b: Pointer to stack B.
-cheepest_move *tmp: Pointer to a structure storing the cheapest move information.
-Operation:
-Iterates through each node in stack A.
-For each node, finds the best target node in stack B using find_tar_a_b.
-Computes the cost of moving the node from stack A to stack B using co_cost.
-int co_cost(node *a, node *b, node **stack_a, node **stack_b)
+void 	ft_get_indexes(t_stack *stack)
 {
-    int co;
-    int tmp_a;
-    int tmp_b;
+    t_node *current;
+    int i;
 
-    tmp_a = find_node(stack_a, a->info);
-    tmp_b = find_node(stack_b, b->info);
-    if (up_or_down(tmp_a, stack_a) == up_or_down(tmp_b, stack_b))
+    i = 1;
+    current = stack->top;
+    while (i <= stack->size)
     {
-        if (up_or_down(tmp_a, stack_a))
-        {
-            if ((size_node(*stack_a) - tmp_a) > (size_node(*stack_b) - tmp_b))
-                co = (size_node(*stack_a) - tmp_a);
-            else
-                co = (size_node(*stack_b) - tmp_b);
-        }
-        else
-        {
-            if (tmp_a > tmp_b)
-                co = tmp_a;
-            else
-                co = tmp_b;
-        }
-        return (co);
+        current->index = i;
+        current = current->next;
+        i++;
     }
-    if (up_or_down(tmp_a, stack_a))
-        co = size_node(*stack_a) - tmp_a;
-    else
-        co = tmp_a;
-    if (up_or_down(tmp_b, stack_b))
-        co += size_node(*stack_b) - tmp_b;
-    else
-        co += tmp_b;
-    return (co);
 }
-Updates tmp if the cost is lower than the currently stored cost.
-Output: Updates the tmp structure with the details of the cheapest move.
-*/
+
+t_node     *ft_get_max(t_stack *stack)
+{
+    t_node  *node;
+    int     max;
+    t_node  *maxnode;
+
+    node = stack->top;
+    max = node->data;
+    maxnode = stack->top;
+    while (node)
+    {
+        if (node->data > max)
+        {
+            max = node->data;
+            maxnode = node;           
+        }
+        node = node->next;
+    }
+    return (maxnode);   
+}
+int     up_or_down(int tmp, t_stack *stack_a)
+{
+    if (tmp > (stack_a->size / 2))
+        return (1);
+    else
+        return (0);
+}
 
 t_node *find_target(t_stack *stack, t_node *node)
 {
-    t_node *target;
+    t_node *target; 
     t_node *current;
 
     if (!stack || !node || !stack->top)
         return NULL;
 
-    target = ft_get_max(stack); 
     current = stack->top;
-
+    target = NULL;
     while (current)
     {
         if (current->data < node->data)
         {
-            if (target->data > node->data || target->data > current->data)
+            if (!target || current->data > target->data)
             {
                 target = current;
             }
         }
         current = current->next;
     }
+    if (!target)
+        target = ft_get_max(stack);
     return target;
 }
 
 int     ft_cost(t_stack *a, t_stack *b, t_node *na, t_node *nb)
 {
-    
+    int     cost;
+    int     a_cost;
+    int     b_cost;
+
+    if (up_or_down(na->index, a) == up_or_down(nb->index,b))
+    {
+        if (up_or_down(na->index, a))
+        {
+            if ((a->size - na->index) > (b->size - nb->index))
+                cost = a->size - na->index;
+            else
+                cost = b->size - nb->index;;
+        }
+        else
+        {
+            if (na->index > nb->index)
+                cost = na->index;
+            else
+                cost = nb->index;
+        }
+        return (cost);
+    }
+    if (up_or_down(na->index,a))
+        cost = a->size - na->index;
+    else
+        cost = na->index;
+    if (up_or_down(nb->index, b))
+        cost += b->size - nb->index;
+    else
+        cost += nb->index;
+    return (cost);
 }
 void    ft_calculate_costs(t_stack *a, t_stack *b)
 {
-    t_node  *sa;
+    t_node   *sa;
     t_node   *sb;
 
     sa = a->top;
@@ -103,10 +128,10 @@ void    ft_calculate_costs(t_stack *a, t_stack *b)
     while (sa)
     {
         sa->target = find_target(b, sa);
-        sa->cost = 
+        sa->cost = ft_cost(a,b,sa,sa->target);
         sa = sa->next;
     }
-    
+    return ;
 }
 
 t_node      *ft_least_cost(t_stack *a, t_stack *b)
@@ -114,8 +139,8 @@ t_node      *ft_least_cost(t_stack *a, t_stack *b)
     t_node  *node;
     t_node  *least;
     
-    ft_get_indexes(a);
-    ft_get_indexes(b);
+    //ft_get_indexes(a);
+    //ft_get_indexes(b);
     ft_calculate_costs(a,b);
     node = a->top;
     least = node;
@@ -128,25 +153,105 @@ t_node      *ft_least_cost(t_stack *a, t_stack *b)
     return (least);
 }
 
-int     up_or_down(int tmp, t_stack *stack_a)
+// Helper function to create a new node
+t_node *create_node(int data, int index)
 {
-    if (tmp > (stack_a->size / 2))
-        return (1);
-    else
-        return (0);
+    t_node *new_node = (t_node *)malloc(sizeof(t_node));
+    new_node->data = data;
+    new_node->index = index;
+    new_node->cost = 0;
+    new_node->next = NULL;
+    new_node->prev = NULL;
+    return new_node;
 }
 
+// Helper function to initialize a stack
+t_stack *init_stack()
+{
+    t_stack *stack = (t_stack *)malloc(sizeof(t_stack));
+    stack->top = NULL;
+    stack->size = 0;
+    return stack;
+}
+
+// Helper function to add a node to the stack
+void add_node(t_stack *stack, int data, int index)
+{
+    t_node *new_node = create_node(data, index);
+    if (stack->top == NULL)
+    {
+        stack->top = new_node;
+    }
+    else
+    {
+        new_node->next = stack->top;
+        stack->top->prev = new_node;
+        stack->top = new_node;
+    }
+    stack->size++;
+}
+
+// Helper function to print the stack
+void print_stack(t_stack *stack)
+{
+    t_node *current = stack->top;
+    while (current)
+    {
+        printf("Data: %d, Index: %d, Cost: %d\n", current->data, current->index, current->cost);
+        current = current->next;
+    }
+}
+
+// Main function to test the provided functions
+int main()
+{
+    t_stack *stack_a = init_stack();
+    t_stack *stack_b = init_stack();
+
+    // Add nodes to stack_a
+    add_node(stack_a, 10, 5);
+    add_node(stack_a, 20, 4);
+    add_node(stack_a, 30, 3);
+    add_node(stack_a, 40, 2);
+    add_node(stack_a, 50, 1);
+
+    // Add nodes to stack_b
+    add_node(stack_b, 15, 5);
+    add_node(stack_b, 25, 4);
+    add_node(stack_b, 35, 3);
+    add_node(stack_b, 45, 2);
+    add_node(stack_b, 55, 1);
+
+    printf("Initial Stack A:\n");
+    print_stack(stack_a);
+    printf("Initial Stack B:\n");
+    print_stack(stack_b);
+    ft_calculate_costs(stack_a, stack_b);
+    // Test find_target
+    t_node *target = find_target(stack_b, stack_a->top);
+    if (target)
+        printf("Target for node %d in Stack B: %d\n", stack_a->top->data, target->data);
+    else
+        printf("No target found for node %d in Stack B\n", stack_a->top->data);
+
+    // Test ft_calculate_costs
+    
+    printf("Stack A after calculating costs:\n");
+    print_stack(stack_a);
+
+    // Test ft_least_cost
+    t_node *least_cost_node = ft_least_cost(stack_a, stack_b);
+    if (least_cost_node)
+        printf("Node with least cost in Stack A: %d, Cost: %d and the target is %d\n", least_cost_node->data, least_cost_node->cost, least_cost_node->target->data);
+    else
+        printf("No node found with least cost in Stack A\n");
+
+    // Free memory
+
+    return 0;
+}
 
 /*
-3. up_or_down
-Purpose: Determines whether to move a node upward or downward based on its position in the stack.
-Inputs:
-int tmp: Position of the node in the stack.
-node **stack_a: Pointer to stack A.
-Operation:
-Compares the position of the node to half the size of the stack.
-Returns 1 for upward movement and 0 for downward movement.
-Output: Integer indicating the direction of movement.
 4. co_cost
 Purpose: Calculates the combined cost of moving a node from stack A to stack B (or vice versa).
 Inputs:
