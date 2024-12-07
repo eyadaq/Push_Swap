@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 00:09:30 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 20:53:03 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void    ft_same_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tmp_b)
 {
     if (ft_direction(tmp_a->index, a))
     {
-        tmp_a->cost = a->size - tmp_a->index;
-        tmp_b->cost = b->size - tmp_b->index;
+        tmp_a->cost = a->size - tmp_a->index + 1;
+        tmp_b->cost = b->size - tmp_b->index + 1;
         ft_rrr(a, b, tmp_a, tmp_b);
         ft_rra(a, &tmp_a->cost);
         ft_rrb(b, &tmp_b->cost);
@@ -34,8 +34,10 @@ void    ft_same_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tmp_b)
     else
     {
         ft_rr(a, b, tmp_a, tmp_b);
-        ft_ra(a, &tmp_a->cost);
-        ft_rb(b, &tmp_b->cost);
+        if (tmp_a->index != 1)
+            ft_ra(a, &tmp_a->cost);
+        if (tmp_b->index != 1)
+            ft_rb(b, &tmp_b->cost);
     }
 }
 
@@ -43,7 +45,7 @@ void    ft_different_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tm
 {
     if (ft_direction(tmp_a->index, a))
     {
-        tmp_a->cost = a->size - tmp_a->index;
+        tmp_a->cost = (1 +  a->size - tmp_a->index);
         ft_rra(a, &tmp_a->cost);
     }
     else
@@ -53,12 +55,13 @@ void    ft_different_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tm
 
     if (ft_direction(tmp_b->index, b))
     {
-        tmp_b->cost = b->size - tmp_b->index;
+        tmp_b->cost = 1 + b->size - tmp_b->index;
         ft_rrb(b, &tmp_b->cost);
     }
     else 
-    {
-        ft_rb(b, &tmp_b->cost);
+    {   
+        if (tmp_b->index != 1)
+            ft_rb(b, &tmp_b->cost);
     }
 }
 void    ft_do_the_operations(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tmp_b)
@@ -180,11 +183,15 @@ void        ft_sort_largee(t_stack *a, t_stack *b)
     {
         t_node *least_cost_node = ft_least_cost(a, b);
         if (least_cost_node)
-            printf("Node with least cost in Stack A: %d, Cost: %d and the target is %d\n", least_cost_node->data, least_cost_node->cost, least_cost_node->target->data);
+            printf("Node with least cost in Stack A: %d with index of %d , Cost: %d and the target is %d with index of %d\n", least_cost_node->data ,least_cost_node->index, least_cost_node->cost, least_cost_node->target->data,least_cost_node->target->index);
         else
             printf("No node found with least cost in Stack A\n");
-        ft_do_the_operations(a,b,least_cost_node , least_cost_node->target );
-        ft_pb(a,b);
+        if (least_cost_node->index == 1 && least_cost_node->target->index == 1)
+            ft_pb(a,b);
+        else {
+            ft_do_the_operations(a,b,least_cost_node , least_cost_node->target );
+            ft_pb(a,b);
+        }
         
     }
     ft_sort_three(a);
