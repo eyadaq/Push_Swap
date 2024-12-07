@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:10:00 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/06 23:28:25 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 01:05:06 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void    ft_sa(t_stack *a, int *count)
         (*count)--;
         ft_printf("%s\n", "sa");
     }
+    return ;
 }
 void    ft_rra(t_stack *a, int *count)
 {
@@ -37,7 +38,8 @@ void    ft_rra(t_stack *a, int *count)
         ft_get_indexes(a);
         (*count)--;
         ft_printf("%s\n", "rra");
-    }   
+    }  
+    return ;
 }
 void    ft_ra(t_stack *a, int *count)
 {
@@ -48,5 +50,6 @@ void    ft_ra(t_stack *a, int *count)
         (*count)--;
         ft_printf("%s\n", "ra");
     }
+    return ;
 }
 

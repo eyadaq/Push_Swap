@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 11:10:03 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/06 23:01:46 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 01:05:22 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void    ft_sb(t_stack *b, int *count)
         ft_printf("%s\n", "sb");
         (*count)--;
     }
+    return ;
 }
 
 void    ft_rrb(t_stack *b, int *count)
@@ -40,6 +41,7 @@ void    ft_rrb(t_stack *b, int *count)
         ft_printf("%s\n", "rrb");
         (*count)--;
     }
+    return ;
 }
 
 void    ft_rb(t_stack *b, int *count)
@@ -51,4 +53,5 @@ void    ft_rb(t_stack *b, int *count)
         ft_printf("%s\n", "rb");
         (*count)--;
     }
+    return ;
 }

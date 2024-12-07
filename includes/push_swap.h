@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 08:39:54 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 00:18:41 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 00:37:43 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void				ft_nodeadd_back(t_stack *stack, t_node *newnode);
 void				ft_nodeadd_front(t_stack *stack, t_node *newnode);
 int		            ft_check_fill(t_stack *stack, int argc, char **argv, int c);
 //--------------------Sorting Large----------------------------------------------------------------
-void                ft_sort_large(t_stack *a, t_stack *b);
+void                ft_sort_largee(t_stack *a, t_stack *b);
 int                 ft_direction(int tmp, t_stack *stack_a);
 void                ft_same_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tmp_b);
 t_node              *ft_least_cost(t_stack *a, t_stack *b);

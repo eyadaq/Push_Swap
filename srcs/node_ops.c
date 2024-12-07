@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:54:13 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 00:16:52 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 01:12:28 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void 	ft_get_indexes(t_stack *stack)
     current = stack->top;
     while (current)
     {
-        current->index = index++;
+        current->index = ++index;
         current = current->next;
     }
 }

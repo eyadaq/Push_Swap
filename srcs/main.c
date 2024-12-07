@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:06:38 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 00:18:26 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 00:37:56 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void handle_multiple_arguments(t_stack *stack_a, t_stack *stack_b, int ar
         exit(-1);
     }
     ft_printf("%s\n", "Operations used in sorting:");
-    ft_sort_large(stack_a, stack_b);
+    ft_sort_largee(stack_a, stack_b);
     ft_printf("%s\n", "After Sorting :");
     ft_print_stack(stack_a);
     ft_printf("-------------stack A-------------------------------\n");
