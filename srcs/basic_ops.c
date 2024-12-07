@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:28:17 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 22:12:51 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:52:16 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,18 +87,12 @@ void ft_reverse_rotate(t_stack *stack)
 
     if (stack->top == NULL || stack->top->next == NULL)
         return;
-
-    // Find the last and second-to-last nodes
     last = stack->top;
     while (last->next != NULL) {
         second_to_last = last;
         last = last->next;
     }
-
-    // Disconnect the last node from the second-to-last node
     second_to_last->next = NULL;
-
-    // Adjust pointers
     last->prev = NULL;
     last->next = stack->top;
     stack->top->prev = last;

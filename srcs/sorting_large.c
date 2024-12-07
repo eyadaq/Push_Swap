@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 20:53:03 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:18:46 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void    ft_same_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tmp_b)
     }
     else
     {
+        tmp_a->cost = tmp_a->index - 1;
+        tmp_b->cost = tmp_b->index - 1;
         ft_rr(a, b, tmp_a, tmp_b);
         if (tmp_a->index != 1)
             ft_ra(a, &tmp_a->cost);
@@ -50,6 +52,7 @@ void    ft_different_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tm
     }
     else
     {
+        tmp_a->cost = (tmp_a->index - 1);
         ft_ra(a, &tmp_a->cost);
     }
 
@@ -60,6 +63,7 @@ void    ft_different_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tm
     }
     else 
     {   
+        tmp_b->cost = tmp_b->index - 1;
         if (tmp_b->index != 1)
             ft_rb(b, &tmp_b->cost);
     }
@@ -123,7 +127,7 @@ int     ft_cost(t_stack *a, t_stack *b, t_node *na, t_node *nb)
         else
         {
             if (na->index > nb->index)
-                cost = na->index;
+                cost = na->index - 1;
             else
                 cost = nb->index;
         }
@@ -173,6 +177,45 @@ t_node      *ft_least_cost(t_stack *a, t_stack *b)
     return (least);
 }
 
+void    ft_sortb_descending(t_stack *b)
+{
+    t_node      *min;
+    t_node      *max;
+
+    ft_get_indexes(b);
+    max = ft_get_max(b);
+    min = ft_get_min(b);
+
+    if (ft_direction(max->index, b))
+        max->cost =  1 + b->size - max->index;
+    else 
+        max->cost = max->index - 1;
+    if (ft_direction(min->index, b))
+        min->cost =  1 + b->size - min->index;
+    else 
+        min->cost = min->index - 1;
+    if (min->cost < max->cost && ft_direction(min->index, b))
+        ft_rrb(b,&min->cost);    
+    else if (min->cost < max->cost)
+        ft_rb(b,&min->cost);
+    else if (min->cost > max->cost && ft_direction(max->index, b))
+        ft_rrb(b,&max->cost);
+    else if (min->cost > max->cost)
+        ft_rb(b,&max->cost);
+    return ;    
+}
+
+void        ft_final_sort(t_stack *a, t_stack *b)
+{
+    t_node  *a_last;
+    t_node  *b_head;
+
+    a_last = a->top->next->next;
+    b_head = b->top;
+
+    
+}
+
 void        ft_sort_largee(t_stack *a, t_stack *b)
 {
     ft_pb(a, b);
@@ -182,10 +225,6 @@ void        ft_sort_largee(t_stack *a, t_stack *b)
      while (a->size > 3)
     {
         t_node *least_cost_node = ft_least_cost(a, b);
-        if (least_cost_node)
-            printf("Node with least cost in Stack A: %d with index of %d , Cost: %d and the target is %d with index of %d\n", least_cost_node->data ,least_cost_node->index, least_cost_node->cost, least_cost_node->target->data,least_cost_node->target->index);
-        else
-            printf("No node found with least cost in Stack A\n");
         if (least_cost_node->index == 1 && least_cost_node->target->index == 1)
             ft_pb(a,b);
         else {
@@ -195,4 +234,5 @@ void        ft_sort_largee(t_stack *a, t_stack *b)
         
     }
     ft_sort_three(a);
+    ft_sortb_descending(b);
 }

@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:54:13 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 22:11:11 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 22:53:09 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,12 @@ void 	ft_get_indexes(t_stack *stack)
     t_node *current;
     int index = 0;
 
-    // Reset all indexes first
     current = stack->top;
     while (current)
     {
         current->index = -1;
         current = current->next;
     }
-
-    // Assign indexes
     current = stack->top;
     while (current)
     {
