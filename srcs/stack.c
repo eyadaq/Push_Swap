@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 09:11:34 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/02 08:49:32 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/06 00:37:50 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static t_node 	*ft_new_node()
     new->index = 0;
     new->cost = 0;
     new->next = NULL;
+	new->prev = NULL;
+	new->target = NULL;
 	return (new);
 }
 

@@ -1,0 +1,6 @@
+Operations used in sorting:
+pb
+pb
+sb
+pb
+pb

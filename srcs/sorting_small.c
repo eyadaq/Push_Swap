@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 06:56:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/03 07:43:35 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/06 23:14:16 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,21 @@ void    ft_sort_three(t_stack *a)
         return ;
     casenum = ft_checkcase(a);
     if (casenum == 1)
-        ft_sa(a);
+        ft_sas(a);
     else if (casenum == 2)
     {
-        ft_sa(a);
-        ft_rra(a); 
+        ft_sas(a);
+        ft_rras(a); 
     }
     else if (casenum == 3)
-        ft_ra(a);
+        ft_ras(a);
     else if (casenum == 4)
     {
-        ft_sa(a);
-        ft_ra(a);
+        ft_sas(a);
+        ft_ras(a);
     }
     else if (casenum == 5)
-        ft_rra(a);
-    if (ft_checksorted(a))
-        return ;
-    ft_sort_three(a);
+        ft_rras(a);
 }
 
 static void    ft_sort_four(t_stack *a, t_stack *b)
@@ -94,15 +91,15 @@ static void    ft_sort_four(t_stack *a, t_stack *b)
     else if (b->top->data > max->data)
     {
         ft_pa(a,b);
-        ft_ra(a);
+        ft_ras(a);
     }
     else 
     {
-        ft_ra(a);
+        ft_ras(a);
         ft_pa(a, b);
         if (a->top->data > a->top->next->data)
-            ft_sa(a);
-        ft_rra(a);
+            ft_sas(a);
+        ft_rras(a);
     }
     return ;
 }
@@ -119,12 +116,12 @@ void    ft_sort_five(t_stack *a, t_stack *b)
         if (pos <= a->size / 2)
         {
             while (a->top != node)
-                ft_ra(a);
+                ft_ras(a);
         }
         else
         {
             while (a->top != node)
-                ft_rra(a);
+                ft_rras(a);
         }
         ft_pb(a, b);
     }
@@ -132,7 +129,7 @@ void    ft_sort_five(t_stack *a, t_stack *b)
     while (b->size > 0)
         ft_pa(a, b);
     if (a->top->data > a->top->next->data)
-        ft_sa(a);
+        ft_sas(a);
 }
 
 void    ft_sort_small(t_stack *a, t_stack *b)
@@ -140,7 +137,7 @@ void    ft_sort_small(t_stack *a, t_stack *b)
     if (2 == a->size)
     {
         if (!ft_checksorted(a))
-            ft_sa(a);
+            ft_sas(a);
     }
     if (3 == a->size)
         ft_sort_three(a);
