@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 09:11:34 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/06 00:37:50 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:30:10 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	ft_fill_stack(t_stack *stack, int argc, char *argv[], int c)  // i 0
         if (stack->top == NULL)
         {   
             new->next = NULL;
+			new->prev = NULL;
             stack->top = new;  
         }    
         else

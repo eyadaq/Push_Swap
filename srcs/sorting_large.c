@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 23:18:46 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:49:39 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,15 +205,24 @@ void    ft_sortb_descending(t_stack *b)
     return ;    
 }
 
-void        ft_final_sort(t_stack *a, t_stack *b)
-{
-    t_node  *a_last;
-    t_node  *b_head;
+void ft_final_sort(t_stack *a, t_stack *b) {
 
-    a_last = a->top->next->next;
-    b_head = b->top;
+    t_node *a_last = a->top;
+    t_node *b_head = b->top;
+    int i = 3;
 
-    
+    while (a_last->next) {
+        a_last = a_last->next;
+    }    
+    while (b->size > 0 && b_head) {
+        while (i > 0 && b_head && a_last && b_head->data < a_last->data) {
+            a_last = a_last->prev;
+            ft_rras(a);
+            i--;
+        }
+        ft_pa(a, b);
+        b_head =b->top;
+    }
 }
 
 void        ft_sort_largee(t_stack *a, t_stack *b)
@@ -231,8 +240,8 @@ void        ft_sort_largee(t_stack *a, t_stack *b)
             ft_do_the_operations(a,b,least_cost_node , least_cost_node->target );
             ft_pb(a,b);
         }
-        
     }
     ft_sort_three(a);
     ft_sortb_descending(b);
+    ft_final_sort(a, b);
 }
