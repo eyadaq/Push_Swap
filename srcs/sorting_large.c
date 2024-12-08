@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 00:10:06 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 07:06:22 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,11 +186,11 @@ void    ft_sortb_descending(t_stack *b)
     min = ft_get_min(b);
 
     if (ft_direction(max->index, b))
-        max->cost =  1 + b->size - max->index;
+        max->cost = (1 + b->size - max->index);
     else 
         max->cost = max->index - 1;
     if (ft_direction(min->index, b))
-        min->cost = b->size - min->index;
+        min->cost = (b->size - min->index);
     else 
         min->cost = (min->index);
     if (min->cost < max->cost && ft_direction(min->index, b))
@@ -199,8 +199,10 @@ void    ft_sortb_descending(t_stack *b)
         ft_rb(b,&min->cost);
     else if (min->cost > max->cost && ft_direction(max->index, b))
         ft_rrb(b,&max->cost);
-    else
-        ft_rb(b,&max->cost);
+    else if (ft_direction(max->index, b))
+        ft_rrb(b,&max->cost);
+    else 
+        ft_rb(b, &min->cost);
     return ;    
 }
 
@@ -222,6 +224,12 @@ void ft_final_sort(t_stack *a, t_stack *b) {
         ft_pa(a, b);
         b_head =b->top;
     }
+    if (i > 0)
+        while (i > 0)
+        {
+           ft_rras(a);
+           i--; 
+        }
 }
 
 void        ft_sort_largee(t_stack *a, t_stack *b)
@@ -242,6 +250,9 @@ void        ft_sort_largee(t_stack *a, t_stack *b)
     }
     ft_sort_three(a);
     ft_get_indexes(b);
+    ft_print_stack(a);
+    ft_printf("---------------Stack A before the last sort\n");
     ft_sortb_descending(b);
+    ft_get_indexes(b);
     ft_final_sort(a, b);
 }
