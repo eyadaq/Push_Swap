@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:16:13 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 07:24:47 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,27 @@ void    ft_sortb_descending(t_stack *b)
     return ;    
 }
 
-void ft_final_sort(t_stack *a, t_stack *b) {
+void    ft_do_a(int s, t_stack *a)
+{
+    int     i;
 
-    t_node *a_last = a->top;
-    t_node *b_head = b->top;
-    int i = 3;
+    i = s;
+    while (i > 0)
+    {
+        ft_rras(a);
+        i--; 
+    }
+}
 
+void ft_final_sort(t_stack *a, t_stack *b) 
+{
+    t_node *a_last;
+    t_node *b_head;
+    int     i;
+
+    a_last = a->top;
+    b_head = b->top;
+    i = 3;
     while (a_last->next)
         a_last = a_last->next;
     while (b->size > 0 && b_head)
@@ -61,11 +76,7 @@ void ft_final_sort(t_stack *a, t_stack *b) {
         b_head =b->top;
     }
     if (i > 0)
-        while (i > 0)
-        {
-           ft_rras(a);
-           i--; 
-        }
+        ft_do_a(i , a);
 }
 
 void        ft_sort_largee(t_stack *a, t_stack *b)
