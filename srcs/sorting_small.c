@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 06:56:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/06 23:14:16 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:42:07 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,22 +34,6 @@ static int     ft_checkcase(t_stack *a)
     if (node->next == max)
         return (5);
     return (1);
-}
-static int     get_position(t_stack *stack, t_node *node)
-{
-    t_node *current;
-    int position;
-
-    current = stack->top;
-    position = 0;
-    while (current != NULL)
-    {
-        if (current == node)
-            return position;
-        current = current->next;
-        position++;
-    }
-    return -1;
 }
 
 void    ft_sort_three(t_stack *a)

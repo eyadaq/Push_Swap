@@ -6,13 +6,13 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 19:28:17 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 22:52:16 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:40:32 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-void ft_push(t_stack *stack_x, t_stack *stack_y)
+void    ft_push(t_stack *stack_x, t_stack *stack_y)
 {
     t_node *temp;
 
@@ -41,7 +41,7 @@ void ft_push(t_stack *stack_x, t_stack *stack_y)
     stack_y->size++;
 }
 
-void ft_swap(t_stack *stack)
+void     ft_swap(t_stack *stack)
 {
     t_node *first;
     t_node *second;
@@ -63,7 +63,7 @@ void ft_swap(t_stack *stack)
     stack->top = second;
 }
 
-void ft_rotate(t_stack *stack)
+void    ft_rotate(t_stack *stack)
 {
     t_node *first;
     t_node *last;
@@ -80,7 +80,7 @@ void ft_rotate(t_stack *stack)
     last->next = first;
     first->prev = last;
 }
-void ft_reverse_rotate(t_stack *stack)
+void    ft_reverse_rotate(t_stack *stack)
 {
     t_node *last;
     t_node *second_to_last;

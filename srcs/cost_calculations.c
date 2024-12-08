@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 07:11:55 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:18:53 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:40:05 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void    ft_calculate_costs(t_stack *a, t_stack *b)
     return ;
 }
 
-int ft_cost_same_direction(t_stack *a, t_stack *b, t_node *na, t_node *nb)
+int     ft_cost_same_direction(t_stack *a, t_stack *b, t_node *na, t_node *nb)
 {
-    int cost;
+    int     cost;
 
     if (ft_direction(na->index, a))
     {
@@ -66,7 +66,7 @@ int ft_cost_same_direction(t_stack *a, t_stack *b, t_node *na, t_node *nb)
     return cost;
 }
 
-int ft_cost(t_stack *a, t_stack *b, t_node *na, t_node *nb)
+int     ft_cost(t_stack *a, t_stack *b, t_node *na, t_node *nb)
 {
     int cost;
 

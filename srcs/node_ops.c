@@ -6,13 +6,13 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 20:54:13 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 23:34:58 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:41:24 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-t_node	*ft_lastnode(t_node *lst)
+t_node		*ft_lastnode(t_node *lst)
 {
 	t_node	*last;
 

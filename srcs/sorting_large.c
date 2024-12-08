@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:32:21 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:41:33 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void    ft_do_a(int s, t_stack *a)
     return ;
 }
 
-void ft_final_sort(t_stack *a, t_stack *b) 
+void     ft_final_sort(t_stack *a, t_stack *b) 
 {
     t_node *a_last;
     t_node *b_head;

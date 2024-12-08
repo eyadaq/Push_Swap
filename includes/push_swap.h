@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 08:39:54 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:32:59 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:43:17 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,5 @@ t_node              *ft_find_target(t_stack *stack, t_node *node);
 void                ft_different_direction(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tmp_b);
 void                ft_do_the_operations(t_stack *a, t_stack *b, t_node *tmp_a, t_node *tmp_b);
 void                ft_sort(t_stack *a, t_stack *b);
+int                 get_position(t_stack *stack, t_node *node);
 #endif

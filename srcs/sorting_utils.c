@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/26 09:59:58 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:32:13 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:42:49 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,21 @@ void    ft_sort(t_stack *a, t_stack *b)
     else 
         ft_sort_large(a,b);
     return ;
+}
+
+int     get_position(t_stack *stack, t_node *node)
+{
+    t_node *current;
+    int position;
+
+    current = stack->top;
+    position = 0;
+    while (current != NULL)
+    {
+        if (current == node)
+            return position;
+        current = current->next;
+        position++;
+    }
+    return -1;
 }

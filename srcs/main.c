@@ -6,13 +6,13 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:06:38 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:44:42 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 11:41:13 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-static void ft_free_args(char **args)
+static void     ft_free_args(char **args)
 {
     int 	i;
 	
@@ -25,7 +25,7 @@ static void ft_free_args(char **args)
     free(args);
 }
 
-static void handle_two_arguments(t_stack *stack_a, t_stack *stack_b, char *arg)
+static void     handle_two_arguments(t_stack *stack_a, t_stack *stack_b, char *arg)
 {
     char **args;
     int 	i;
@@ -45,7 +45,7 @@ static void handle_two_arguments(t_stack *stack_a, t_stack *stack_b, char *arg)
     return ;
 }
 
-static void handle_multiple_arguments(t_stack *stack_a, t_stack *stack_b, int argc, char *argv[])
+static void     handle_multiple_arguments(t_stack *stack_a, t_stack *stack_b, int argc, char *argv[])
 {
     if (ft_check_fill(stack_a, argc, argv, 1))
     {
@@ -55,7 +55,7 @@ static void handle_multiple_arguments(t_stack *stack_a, t_stack *stack_b, int ar
     return ;
 }
 
-static void initialize_stacks(t_stack **stack_a, t_stack **stack_b)
+static void     initialize_stacks(t_stack **stack_a, t_stack **stack_b)
 {
     *stack_a = ft_init_stack();
     *stack_b = ft_init_stack();
@@ -67,7 +67,7 @@ static void initialize_stacks(t_stack **stack_a, t_stack **stack_b)
     }
 }
 
-int main(int argc, char *argv[])
+int      main(int argc, char *argv[])
 {
     t_stack *stack_a;
     t_stack *stack_b;
