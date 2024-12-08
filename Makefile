@@ -6,15 +6,15 @@
 #    By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 08:11:10 by eaqrabaw          #+#    #+#              #
-#    Updated: 2024/12/07 00:37:39 by eaqrabaw         ###   ########.fr        #
+#    Updated: 2024/12/08 07:17:12 by eaqrabaw         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 Name = push_swap
 CC = cc
 Flags = -Wall -Wextra -Werror -g
-SRCS = main error node_ops aops basic_ops bops double_ops small_ops\
-       stack sorting_small sorting_utils sorting_large
+SRCS = main error node_ops aops basic_ops bops double_ops small_ops do_the_ops\
+       stack sorting_small sorting_utils sorting_large cost_calculations
 srcDir = srcs/
 incDir = includes/
 objDir = obj/
