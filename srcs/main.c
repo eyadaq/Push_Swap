@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 22:06:38 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/07 00:37:56 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/07 23:53:58 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,9 @@ static void handle_multiple_arguments(t_stack *stack_a, t_stack *stack_b, int ar
     ft_printf("stack a size = %d\n", stack_a->size);
     ft_print_stack(stack_b);
     ft_printf("-------------stack B-------------------------------\n");
+    int i = ft_checksorted(stack_a);
+    if (i)
+        ft_printf("sorted 1OO&");
     ft_free_both(stack_a, stack_b);
 }
 
