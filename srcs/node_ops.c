@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-t_node		*ft_lastnode(t_node *lst)
+t_node	*ft_lastnode(t_node *lst)
 {
 	t_node	*last;
 
@@ -57,7 +57,6 @@ void	ft_nodeadd_front(t_stack *stack, t_node *newnode)
 	stack->top = newnode;
 }
 
-
 t_node	*ft_before_lastnode(t_node *lst)
 {
 	t_node	*before_last;
@@ -70,21 +69,22 @@ t_node	*ft_before_lastnode(t_node *lst)
 	return (before_last);
 }
 
-void 	ft_get_indexes(t_stack *stack)
+void	ft_get_indexes(t_stack *stack)
 {
-    t_node *current;
-    int index = 0;
+	t_node	*current;
+	int		index;
 
-    current = stack->top;
-    while (current)
-    {
-        current->index = -1;
-        current = current->next;
-    }
-    current = stack->top;
-    while (current)
-    {
-        current->index = ++index;
-        current = current->next;
-    }
+	index = 0;
+	current = stack->top;
+	while (current)
+	{
+		current->index = -1;
+		current = current->next;
+	}
+	current = stack->top;
+	while (current)
+	{
+		current->index = ++index;
+		current = current->next;
+	}
 }

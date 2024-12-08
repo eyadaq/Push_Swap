@@ -12,29 +12,30 @@
 
 #include "../includes/push_swap.h"
 
-void                ft_sas(t_stack *a)
+void	ft_sas(t_stack *a)
 {
-    ft_swap(a);
-    ft_get_indexes(a);
-    ft_printf("%s\n", "sa");
-}
-void                ft_rras(t_stack *a)
-{
-    ft_reverse_rotate(a);
-    ft_get_indexes(a);
-    ft_printf("%s\n", "rra");
+	ft_swap(a);
+	ft_get_indexes(a);
+	ft_printf("%s\n", "sa");
 }
 
-void                ft_ras(t_stack *a)
+void	ft_rras(t_stack *a)
 {
-    ft_rotate(a);
-    ft_get_indexes(a);
-    ft_printf("%s\n", "ra");
+	ft_reverse_rotate(a);
+	ft_get_indexes(a);
+	ft_printf("%s\n", "rra");
 }
 
-void                ft_sbs(t_stack *b)
+void	ft_ras(t_stack *a)
 {
-    ft_swap(b);
-    ft_get_indexes(b);
-    ft_printf("%s\n", "sb");
+	ft_rotate(a);
+	ft_get_indexes(a);
+	ft_printf("%s\n", "ra");
+}
+
+void	ft_sbs(t_stack *b)
+{
+	ft_swap(b);
+	ft_get_indexes(b);
+	ft_printf("%s\n", "sb");
 }

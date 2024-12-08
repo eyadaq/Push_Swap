@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-static int		ft_check_duplicates(t_stack *stack)
+static int	ft_check_duplicates(t_stack *stack)
 {
 	t_node	*current;
 	t_node	*runner;
@@ -35,9 +35,9 @@ static int		ft_check_duplicates(t_stack *stack)
 	return (0);
 }
 
-static int		ft_check_int_size(const char *c)
+static int	ft_check_int_size(const char *c)
 {
-	long 	num;
+	long	num;
 
 	num = ft_atoi(c);
 	if (num < INT_MIN || num > INT_MAX)
@@ -47,10 +47,10 @@ static int		ft_check_int_size(const char *c)
 	return (0);
 }
 
-static int		ft_check_int(int argc, char *argv[], int c)
+static int	ft_check_int(int argc, char *argv[], int c)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	i = c;
 	while (i < argc)
@@ -77,12 +77,12 @@ void	ft_error(void)
 	ft_putstr_fd("Error\n", 2);
 }
 
-int		ft_check_fill(t_stack *stack, int argc, char **argv, int c) // 0 if 2 args 1 if multi
+int	ft_check_fill(t_stack *stack, int argc, char **argv, int c)
 {
 	if (ft_check_int(argc, argv, c))
 	{
 		ft_free_stack(stack);
-		return (1);		
+		return (1);
 	}
 	if (c == 1)
 		ft_fill_stack(stack, (argc - 1), argv, 1);
@@ -91,7 +91,7 @@ int		ft_check_fill(t_stack *stack, int argc, char **argv, int c) // 0 if 2 args 
 	if (ft_check_duplicates(stack))
 	{
 		ft_free_stack(stack);
-		return (1);	
+		return (1);
 	}
 	return (0);
 }

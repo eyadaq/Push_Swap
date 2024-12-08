@@ -15,15 +15,14 @@
 long	ft_atol(const char *str)
 {
 	long	num;
-	int	isneg;
-	int	i;
+	int		isneg;
+	int		i;
 
 	num = 0;
 	isneg = 1;
 	i = 0;
-	while (str[i] && (str[i] == ' ' || str[i] == '\t'
-			|| str[i] == '\n' || str[i] == '\r'
-			|| str[i] == '\v' || str[i] == '\f'))
+	while (str[i] && (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
+			|| str[i] == '\r' || str[i] == '\v' || str[i] == '\f'))
 		i++;
 	if (str[i] == '+')
 		i++;
