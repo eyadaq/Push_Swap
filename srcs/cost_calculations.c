@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 07:11:55 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:14:31 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 07:18:53 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,37 @@ void    ft_calculate_costs(t_stack *a, t_stack *b)
     return ;
 }
 
-int     ft_cost(t_stack *a, t_stack *b, t_node *na, t_node *nb)
+int ft_cost_same_direction(t_stack *a, t_stack *b, t_node *na, t_node *nb)
 {
-    int     cost;
+    int cost;
+
+    if (ft_direction(na->index, a))
+    {
+        if ((a->size - na->index) > (b->size - nb->index))
+            cost = a->size - na->index;
+        else
+            cost = b->size - nb->index;
+    }
+    else
+    {
+        if (na->index > nb->index)
+            cost = na->index - 1;
+        else
+            cost = nb->index;
+    }
+    return cost;
+}
+
+int ft_cost(t_stack *a, t_stack *b, t_node *na, t_node *nb)
+{
+    int cost;
 
     cost = 0;
-    if (ft_direction(na->index, a) == ft_direction(nb->index,b))
+    if (ft_direction(na->index, a) == ft_direction(nb->index, b))
     {
-        if (ft_direction(na->index, a))
-        {
-            if ((a->size - na->index) > (b->size - nb->index))
-                cost = a->size - na->index;
-            else
-                cost = b->size - nb->index;;
-        }
-        else
-        {
-            if (na->index > nb->index)
-                cost = na->index - 1;
-            else
-                cost = nb->index;
-        }
-        return (cost);
+        return ft_cost_same_direction(a, b, na, nb);
     }
-    if (ft_direction(na->index,a))
+    if (ft_direction(na->index, a))
         cost = a->size - na->index;
     else
         cost = na->index;
@@ -76,7 +83,7 @@ int     ft_cost(t_stack *a, t_stack *b, t_node *na, t_node *nb)
         cost += b->size - nb->index;
     else
         cost += nb->index;
-    return (cost);
+    return cost;
 }
 
 t_node      *ft_find_target(t_stack *stack, t_node *node)
