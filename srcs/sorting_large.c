@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 10:29:19 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/12/08 07:24:47 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/08 07:32:21 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void    ft_do_a(int s, t_stack *a)
         ft_rras(a);
         i--; 
     }
+    return ;
 }
 
 void ft_final_sort(t_stack *a, t_stack *b) 
@@ -77,9 +78,11 @@ void ft_final_sort(t_stack *a, t_stack *b)
     }
     if (i > 0)
         ft_do_a(i , a);
+    return ;
 }
 
-void        ft_sort_largee(t_stack *a, t_stack *b)
+
+void        ft_sort_large(t_stack *a, t_stack *b)
 {
     t_node *least_cost_node;
     
@@ -100,8 +103,6 @@ void        ft_sort_largee(t_stack *a, t_stack *b)
     }
     ft_sort_three(a);
     ft_get_indexes(b);
-    ft_print_stack(a);
-    ft_printf("---------------Stack A before the last sort\n");
     ft_sortb_descending(b);
     ft_get_indexes(b);
     ft_final_sort(a, b);
