@@ -1,2 +1,2 @@
 
-![Pipexm](pipexm.png)
+![push-swapm](push_swapm.png)
