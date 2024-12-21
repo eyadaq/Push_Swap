@@ -6,7 +6,7 @@
 /*   By: eaqrabaw <eaqrabaw@student.42amman.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 01:13:51 by eaqrabaw          #+#    #+#             */
-/*   Updated: 2024/11/28 06:36:30 by eaqrabaw         ###   ########.fr       */
+/*   Updated: 2024/12/21 03:12:38 by eaqrabaw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_check_int_size(const char *c)
 {
 	long	num;
 
-	num = ft_atoi(c);
+	num = ft_atol(c);
 	if (num < INT_MIN || num > INT_MAX)
 	{
 		return (1);
@@ -58,13 +58,12 @@ static int	ft_check_int(int argc, char *argv[], int c)
 		j = 0;
 		if (argv[i][j] == '-' || argv[i][j] == '+')
 			j++;
+		if (argv[i][j] == '\0')
+			return (1);
 		while (argv[i][j])
 		{
 			if (!ft_isdigit(argv[i][j]) || ft_check_int_size(argv[i]))
-			{
-				ft_error();
 				return (1);
-			}
 			j++;
 		}
 		i++;
@@ -81,6 +80,7 @@ int	ft_check_fill(t_stack *stack, int argc, char **argv, int c)
 {
 	if (ft_check_int(argc, argv, c))
 	{
+		ft_error();
 		ft_free_stack(stack);
 		return (1);
 	}

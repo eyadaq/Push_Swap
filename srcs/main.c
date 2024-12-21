@@ -84,7 +84,8 @@ int	main(int argc, char *argv[])
 	{
 		handle_multiple_arguments(stack_a, stack_b, argc, argv);
 	}
-	ft_sort(stack_a, stack_b);
+	if (!(ft_checksorted(stack_a)))
+		ft_sort(stack_a, stack_b);
 	ft_free_both(stack_a, stack_b);
 	return (0);
 }
