@@ -1,6 +1,3 @@
-
-Here’s a professional and concise description for your Push_swap project using the Turkish Algorithm to showcase on your GitHub profile:
-
 Push_swap: Sorting Algorithm Visualization
 Push_swap is a sorting algorithm project from the 42 curriculum. It involves creating a program to sort a stack of integers using a limited set of operations. The project is designed to demonstrate algorithmic thinking and optimization techniques.
 
