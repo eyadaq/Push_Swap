@@ -1,4 +1,6 @@
-# Push_swap: Sorting Algorithm Visualization
+# Push_swap
+
+![push-swapm](push_swapm.png)
 
 **Push_swap** is a sorting algorithm project from the 42 curriculum. It involves creating a program to sort a stack of integers using a limited set of operations. The project is designed to demonstrate algorithmic thinking and optimization techniques.
 
@@ -12,4 +14,4 @@
 This project serves as a foundation for understanding advanced sorting techniques, stack manipulation, and algorithm optimization.
 
 
-![push-swapm](push_swapm.png)
+
