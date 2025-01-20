@@ -44,7 +44,6 @@ fclean : clean
 	$(MAKE) -C $(libftDir) fclean
 
 re : fclean all
-	$(MAKE) -C $(libftDir) re
 	
 $(libftDir)/libft.a:
 	$(MAKE) -C $(libftDir)
