@@ -143,9 +143,4 @@ ARG="3 2 5 1 4"; ./push_swap $ARG | ./checker $ARG
 ---
 
 > 🧠 Project developed as part of the 42 Network. Focuses on algorithmic thinking, data structures, and optimization.
-```
 
----
-
-Let me know if you want to add visual illustrations or expand it with the bonus part (checker, visualizer, etc).
-```
